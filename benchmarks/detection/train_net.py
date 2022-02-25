@@ -35,6 +35,8 @@ from detectron2.evaluation import (
     verify_results,
 )
 from detectron2.modeling import GeneralizedRCNNWithTTA
+from detectron2.data.datasets import register_coco_instances
+
 
 
 class Trainer(DefaultTrainer):
@@ -156,6 +158,8 @@ def main(args):
 if __name__ == "__main__":
     args = default_argument_parser().parse_args()
     print("Command Line Args:", args)
+    register_coco_instances("train_satis_gg", {}, "/home/mkhodadadi/datasets/satis_gg/coco/annotations/instances_train2017.json", "/home/mkhodadadi/datasets/satis_gg/coco/train")
+    register_coco_instances("val_satis_gg", {}, "/home/mkhodadadi/datasets/satis_gg/coco/annotations/instances_val2017.json", "/home/mkhodadadi/datasets/satis_gg/coco/validation")
     launch(
         main,
         args.num_gpus,
