@@ -33,8 +33,9 @@ DATASETS:
   TRAIN: ("coco_2017_train",)
   TEST: ("coco_2017_val",)
 SOLVER:
-  IMS_PER_BATCH: 16
-  BASE_LR: 0.02
+  IMS_PER_BATCH: 4
+#  BASE_LR: 0.02 It's supposed to be meant for 8 GPUs
+  BASE_LR: 0.0025
   STEPS: (60000, 80000)
   MAX_ITER: 90000
 INPUT:

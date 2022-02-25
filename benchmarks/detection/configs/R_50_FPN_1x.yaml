@@ -1,24 +1,29 @@
 _BASE_: "Base-RCNN-FPN.yaml"
 MODEL:
-  MASK_ON: True
+  MASK_ON: False
+#  WEIGHTS: "/home/alejandro/satisai/py_workspace/ORL/weights/orl_r50_coco_ep800_converted.pkl"
   WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
   BACKBONE:
     FREEZE_AT: 0
   RESNETS:
     DEPTH: 50
-    NORM: "SyncBN"
+    NORM: "BN"
   FPN:
-    NORM: "SyncBN"
+    NORM: "BN"
   ROI_BOX_HEAD:
     NAME: "FastRCNNConvFCHead"
     NUM_CONV: 4
     NUM_FC: 1
-    NORM: "SyncBN"
+    NORM: "BN"
   ROI_MASK_HEAD:
-    NORM: "SyncBN"
+    NORM: "BN"
 TEST:
   PRECISE_BN:
     ENABLED: True
+  AUG:
+    ENABLED: True
+  EVAL_PERIOD: 2000
 SOLVER:
   STEPS: (60000, 80000)
-  MAX_ITER: 90000
+#  MAX_ITER: 90000
+  MAX_ITER: 30000
