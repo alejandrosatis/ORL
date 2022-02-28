@@ -1,8 +1,8 @@
 _BASE_: "Base-RCNN-FPN.yaml"
 MODEL:
   MASK_ON: False
-  WEIGHTS: "/home/alejandro/satisai/py_workspace/ORL/weights/stage3_epoch_800_converted.pkl"
-#  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+#  WEIGHTS: "/home/alejandro/satisai/py_workspace/ORL/weights/orl_r50_coco_ep800_converted.pkl"
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
   BACKBONE:
     FREEZE_AT: 0
   RESNETS:

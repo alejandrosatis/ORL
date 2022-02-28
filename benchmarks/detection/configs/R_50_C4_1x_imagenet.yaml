@@ -1,8 +1,8 @@
 _BASE_: "Base-RCNN-C4-BN.yaml"
 MODEL:
   MASK_ON: False
-  WEIGHTS: "/home/alejandro/satisai/py_workspace/ORL/weights/stage3_epoch_800_converted.pkl"
-#  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+#  WEIGHTS: "/home/alejandro/satisai/py_workspace/ORL/weights/stage3_epoch_800_converted.pkl"
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
 INPUT:
   MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
   MIN_SIZE_TEST: 800

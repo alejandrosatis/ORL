@@ -154,12 +154,32 @@ def main(args):
         )
     return trainer.train()
 
+from detectron2.modeling.roi_heads import ROI_HEADS_REGISTRY, Res5ROIHeads
+from detectron2.layers import get_norm
+
+@ROI_HEADS_REGISTRY.register()
+class Res5ROIHeadsExtraNorm(Res5ROIHeads):
+    """
+    As described in the MOCO paper, there is an extra BN layer
+    following the res5 stage.
+    """
+    def _build_res5_block(self, cfg):
+        seq, out_channels = super()._build_res5_block(cfg)
+        norm = cfg.MODEL.RESNETS.NORM
+        norm = get_norm(norm, out_channels)
+        seq.add_module("norm", norm)
+        return seq, out_channels
+
 
 if __name__ == "__main__":
     args = default_argument_parser().parse_args()
     print("Command Line Args:", args)
-    register_coco_instances("train_satis_gg", {}, "/home/mkhodadadi/datasets/satis_gg/coco/annotations/instances_train2017.json", "/home/mkhodadadi/datasets/satis_gg/coco/train")
-    register_coco_instances("val_satis_gg", {}, "/home/mkhodadadi/datasets/satis_gg/coco/annotations/instances_val2017.json", "/home/mkhodadadi/datasets/satis_gg/coco/validation")
+    register_coco_instances("train_satis_gg", {},
+                            "/media/alejandro/DATA/satisai/datasets/satis_gg/annotations/train_coco.json",
+                            "/media/alejandro/DATA/satisai/datasets/satis_gg/train")
+    register_coco_instances("val_satis_gg", {},
+                            "/media/alejandro/DATA/satisai/datasets/satis_gg/annotations/val_coco.json",
+                            "/media/alejandro/DATA/satisai/datasets/satis_gg/validation")
     launch(
         main,
         args.num_gpus,
